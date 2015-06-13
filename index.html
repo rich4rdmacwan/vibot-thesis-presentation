@@ -1,0 +1,303 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Non-contact physiological signs measurement</title><meta name="generator" content="Hovercraft! 1.0 http://regebro.github.com/hovercraft"></meta><link rel="stylesheet" href="css/hovercraft.css" media="all"></link><link rel="stylesheet" href="css/impressConsole.css" media="all"></link><link rel="stylesheet" href="css/highlight.css" media="all"></link><link rel="stylesheet" href="presentation.css" media="all"></link></head><body class="impress-not-supported"><div id="impress" data-transition-duration="600"><div class="step" step="0" data-x="0" data-y="0">    <div style="font-size:50px;background-color: #444444;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+background-clip: text;
+color: #4f4f4f;
+text-shadow: rgba(255,255,255,0.5) 0px 3px 3px;">
+    Non-contact Physiological Signs Measurements using Remote Photoplethysmography</div>
+    <br/><br/><span style="font-size:130%">Richard Macwan</span>
+    <br/>
+
+    <span style="font-size:130%">Supervisors: Yannick Benezeth, Alamin Mansuri</span>
+    <br/><br/><br/>
+
+    Le2i, Department of Computer Science and Engineering
+    <br/>Universit&#233; de Bourgogne
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+    </script>
+    <script type="text/javascript"
+      src="/usr/share/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script></div><div class="step" step="1" data-x="1600" data-y="0"><h1 id="outline">Outline</h1><ul>
+<li class="selected">Introduction</li>
+<li>Methodology</li>
+<li>Experimental setup</li>
+<li>Results and analysis</li>
+<li>Conclusions and future work</li>
+<li>References</li>
+
+</ul></div><div class="step" step="2" data-x="3200" data-y="0"><h1 id="introduction">Introduction</h1><ul><li>Heart rate is one of the most significant physiological signs</li><li><dl><dt>Continuous non-contact measurements of heart rate are highly desirable</dt><dd><ul><li>Monitoring infants and old patients</li><li>Patients with severe physical trauma</li><li>Fitness based scenarios</li></ul></dd></dl></li></ul><table>
+<tr>
+<td><img src="infant.jpg" height="150px"/></td>
+<td><img src="elderly.jpg" height="150px"/></td>
+<td><img src="burnt.jpg" height="150px"/></td>
+<td><img src="gym.jpg" height="150px"/></td>
+</tr>
+</table></div><div class="step" step="3" data-x="4800" data-y="0"><h1 id="id1">Introduction</h1><ul><li>Contact based devices are inconvenient and sometimes infeasible. Typical examples are:</li></ul><table>
+<tr>
+<td>Heart rate monitors </td>
+<td>Electrocardiograms  </td>
+<td>Pulse oximeters</td>
+</tr>
+<tr>
+<td><img src="heart-rate-monitor.png" width="250px"/> </td>
+<td><img src="ecg.png" width="250px"/></td>
+<td><img src="oximeter.png" width="250px"/></td>
+</tr>
+</table></div><div class="step" step="4" data-x="6400" data-y="0"><h1 id="id2">Introduction</h1><ul><li><dl><dt>Objectives</dt><dd><ul><li>Build a proof of concept system to implement state of the art techniques in remote photoplethysmography</li><li>Evaluate the system and enhance it to build a production grade application</li></ul></dd></dl></li></ul></div><div class="step" step="5" data-x="8000" data-y="0"><h1 id="id3">Introduction</h1><ul><li>Pulse oximeters use photoplethysmography to measure heart rate using a dedicated red and/or infra red light source</li></ul><img src="oximeterworking.png" alt="" width="800px" height=""></img></div><div class="step" step="6" data-x="9600" data-y="0"><h1 id="id4">Introduction</h1><ul><li><strong>Photoplethysmography</strong> : A low cost optical technique to detect blood volume changes in the microvascular bed of tissue</li><li>Rhythmic pumping by the heart results in regular variations in the blood volume in the skin tissue</li><li>Video cameras can be used to detect these variations in the skin manifested as minute changes in the color content</li></ul></div><div class="step" step="7" data-x="11200" data-y="0"><h1 id="remote-photoplethysmography-rppg">Remote Photoplethysmography (RPPG)</h1><style>
+
+        @-webkit-keyframes heartbeat {
+                0% { -webkit-transform: scale(0.4); }
+                20% { -webkit-transform: scale(0.2); }
+                30% { -webkit-transform: scale(0.3); }
+                40% { -webkit-transform: scale(0.2); }
+                50% { -webkit-transform: scale(0.3); }
+                100% { -webkit-transform: scale(0.3); }
+        }
+        @-moz-keyframes heartbeat {
+                0% { -moz-transform: scale(0.4); }
+                20% { -moz-transform: scale(0.32); }
+                30% { -moz-transform: scale(0.4); }
+                40% { -moz-transform: scale(0.32); }
+                50% { -moz-transform: scale(0.4); }
+                100% { -moz-transform: scale(0.4); }
+        }
+        body{
+                background-color: #1e2023;
+        }
+        .heart:hover,
+        .heart:focus, .heart {
+                -webkit-animation-name: heartbeat;
+                -webkit-animation-duration: 1s;
+                -webkit-transform-origin:50% 50%;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+
+                -moz-animation-name: heartbeat;
+                -moz-animation-duration: 1s;
+                -moz-transform-origin:50% 50%;
+                -moz-animation-iteration-count: infinite;
+                -moz-animation-timing-function: linear;
+        }
+        .shake {
+                display:inline-block;
+                text-align: center;
+        }
+        .heart{
+                width: 150px;
+                fill: #f53838;
+                display: inline;
+        }
+        .hoverme{
+                position: absolute;
+                top:54%;
+                left: 52%;
+        }
+        .arrow{
+                fill: #ffffff;
+                width: 100px;
+        }
+</style>
+
+<img src="rppg.png"  style="position:relative;left:100px;width:600px"/>
+<div class="shake" style="position:relative;left:-330px;top:-160px">
+        <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" class="heart" viewBox="0 0 498.637 466.804" enable-background="new 0 0 498.637 466.804" xml:space="preserve">
+        <path d="M368.932 0c-53.828 0-99.977 32.785-119.613 79.468C229.682 32.8 183.5 0 129.7 0C62.549 0 0 64.7 0 129.7 C0 287.3 193.4 361.7 249.3 466.804l0 0c55.907-105.108 249.319-179.489 249.319-337.094C498.637 64.7 436.1 0 368.9 0 z"/>
+        </svg>
+
+</div></div><div class="step" step="8" data-x="12800" data-y="0"><h1 id="id5">Outline</h1><ul>
+<li>Introduction</li>
+<li class="selected">Methodology</li>
+<li>Experimental setup</li>
+<li>Results and analysis</li>
+<li>Conclusions and future work</li>
+<li>References</li>
+</ul></div><div class="step" step="9" data-x="14400" data-y="0"><h1 id="methods">Methods</h1><ul><li><dl><dt>Three methods were implemented:</dt><dd><ul><li>BASIC</li><li>CHROM</li><li>ICA_RGB</li></ul></dd></dl></li></ul></div><div class="step" step="10" data-x="16000" data-y="0"><h1 id="basic-method">BASIC method</h1><ul><li><dl><dt>Based on Verkruysse's method</dt><dd><ul><li>Green channel has the strongest RPPG signal</li><li>Blue and red channel also photoplethysmographic signal, albeit, to a lesser extent</li></ul></dd></dl></li></ul></div><div class="step" step="11" data-x="17600" data-y="0"><h1 id="id6">BASIC method</h1><ul><li>Another study, by Wu et. al., used restrictive temporal filtering to amplify color variations and low amilitude motion<blockquote><video id="vidmag" autoplay="autoplay" loop style="width:700px;position:relative;left:-50px">
+<source src="../vidmag.mp4" type="video/mp4"/>
+</video></blockquote></li></ul></div><div class="step" step="12" data-x="19200" data-y="0"><h1 id="id7">BASIC method</h1><ul><li>RPPG signal obtained by using spatial averaging over a gaussian pyramid of images of the skin region of the frames</li></ul><img src="BASIC.png" style="position:relative; left:-15%;width:130%"/></div><div class="step" step="13" data-x="20800" data-y="0"><h1 id="id8">BASIC method</h1><ul><li><dl><dt>Extract RPPG sensors</dt><dd><ul><li>Face/Skin detection</li><li>Face detection using Viola-Jones detector</li><li>Skin detection using an enhanced skin color classifier based on RGB ratio model proposed by Osman</li></ul></dd></dl></li></ul></div><div class="step" step="14" data-x="22400" data-y="0"><h1 id="skin-detection">Skin detection</h1><ul>
+<li> A pixel is classified as a skin pixel if </li>
+<ul>
+        <li>$R \gt 95 , G \gt 40 $ and $ B \gt 20 $ </li>
+        <li>$ max(R, G, B) &#8722; min(R, G, B) \gt 15 $</li>
+        <li>$ |R &#8722; G| \gt 15 $ and</li>
+        <li>$ R \gt G, R \gt B $</li>
+</ul></div><div class="step" step="15" data-x="24000" data-y="0"><h1 id="id9">Skin detection</h1><table style="position:relative;left:50px">
+<tr>
+<td><img src="skinmask1.png" height="270px"/><td>
+<tr>
+<tr>
+<td><img src="skinmask2.png" height="270px"/><td>
+<tr>
+</table></div><div class="step" step="16" data-x="25600" data-y="0"><h1 id="id10">Skin detection</h1><table style="position:relative;left:50px">
+<tr>
+<td><img src="skinmask3.png" height="270px"/><td>
+<tr>
+<tr>
+<td><img src="skinmask4.png" height="270px"/><td>
+<tr>
+</table></div><div class="step" step="17" data-x="27200" data-y="0"><h1 id="image-pyramids">Image pyramids</h1><ul><li>Downsampling with 3 iterations using a Gaussian kernal</li></ul><table>
+<tr>
+<td>
+        <img src="imagepyramids.png" width="300px"/>
+</td>
+<td>&nbsp;</td>
+<td>
+\[
+G_{i}=\frac{1}{256}\begin{bmatrix}1 & 4 & 6 & 4 & 1\\
+4 & 16 & 24 & 16 & 4\\
+6 & 24 & 36 & 24 & 6\\
+4 & 16 & 24 & 16 & 4\\
+1 & 4 & 6 & 4 & 1
+\end{bmatrix}
+\]
+</td>
+</tr>
+</table><ul><li>Scaled space representation using image pyramids</li></ul></div><div class="step" step="18" data-x="28800" data-y="0"><h1 id="extract-the-rppg-signal">Extract the RPPG signal</h1><ul><li>Spatial averaging over the skin ROI</li><li>Three signal values per frame</li><li>Temporally concatenated to build up a signal</li></ul></div><div class="step" step="19" data-x="30400" data-y="0"><h1 id="post-processing">Post-processing</h1><ul><li>Detrending</li><li>Temporal Filtering</li></ul></div><div class="step" step="20" data-x="32000" data-y="0"><h1 id="detrending">Detrending</h1><ul><li>The temporal signal might exhibit slow linear or more complex trends</li><li>Results in distortions in time and frequency analysis</li></ul><img src="withoutdetrending.png" alt="" width="800px" height=""></img></div><div class="step" step="21" data-x="33600" data-y="0"><h1 id="id11">Detrending</h1><ul>
+<li>Method based on smoothness priors proposed by Karjalainen et. al. specifically for use in heart rate variability analysis</li>
+<li>Let the RPPG signal be denoted by
+        \begin{equation}
+        z=(r_{1},r_{2}...r_{n})^{T},
+        \end{equation}
+        where n=300 is the number of frames in our temporal window and $r_{i}$ are the signal values
+</li>
+<li>
+Each trace can be considered to be composed of a nearly stationary component, $z_{stat}$ and a low frequency aperiodic component, $z_{trend}$
+\begin{equation}
+z=z_{stat}+z_{trend}
+\end{equation}
+</li>
+</ul></div><div class="step" step="22" data-x="35200" data-y="0"><h1 id="id12">Detrending</h1><ul>
+<li>The trend component can be linearly modeled as
+        \begin{equation}
+        z_{trend}=H\theta+v
+        \end{equation}
+where $H\in\mathbb{R}^{(n-1)\times M}$ is the observation matrix,
+$\theta\in\mathbb{R}^{M}$ are the regression parameters and $v$
+is the observation error.
+</li>
+<li>Optimization task is to estimate $z_{trend}=H\hat{\theta}$ that can be used to estimate the trend</li>
+
+</ul></div><div class="step" step="23" data-x="36800" data-y="0"><h1 id="id13">Detrending</h1><ul>
+<li>$\hat{\theta}$ is estimated using the generic process of regularized least squares solution
+
+\begin{equation}
+\hat{\theta}_{\lambda}=arg\,\underset{\theta}{min}\{\left\Vert H\theta-z\right\Vert ^{2}+\lambda^{2}\left\Vert D_{d}(H\theta)\right\Vert ^{2}\}\label{eq:regleastsquares}
+\end{equation}
+where $\lambda$ is the regularization parameter and $D_{d}$ indicates
+the discrete approximation of the $d$'th derivative operator.
+</li>
+<li>
+The solution is given by
+\begin{eqnarray}
+\hat{\theta}_{\lambda} & = & (H^{T}H+\lambda^{2}H^{T}D_{d}^{T}D_{d}H)^{-1}H^{T}z\\
+\hat{z}_{trend} & = & H\hat{\theta}_{\lambda}
+\end{eqnarray}
+ where $\hat{z}_{trend}$is the estimated trend which needs to be
+removed.
+</li>
+</ul></div><div class="step" step="24" data-x="38400" data-y="0"><h1 id="detrending-before-and-after">Detrending - before and after</h1><table>
+<tr><td>Before <img src="withoutdetrending.png"  width="800px"/></td></tr>
+<tr><td>After<img src="detrended.png"  width="800px"/></td></tr>
+</table></div><div class="step" step="25" data-x="40000" data-y="0"><h1 id="temporal-filtering">Temporal filtering</h1><ul><li>The frequency components falling outside normal heart rates of 0.75 Hz to 4.0 Hz are discarded using a Butterworth bandpass filter</li></ul><table>
+<tr><td>Before <img src="detrendedwithouttemporalfiltering.png"  width="800px"/></td></tr>
+<tr><td>After<img src="detrendedwithtemporalfiltering.png"  width="800px"/></td></tr>
+</table></div><div class="step" step="26" data-x="41600" data-y="0"><h1 id="extracting-the-heart-rate">Extracting the heart rate</h1><ul>
+<li>Heart rate measured by detecting peaks and estimating the inter-beat intervals (IBIs)</li>
+<li>Peaks are identified as points where the differential changes the sign</li>
+<li>Non-max suppression is also applied</li>
+</ul></div><div class="step" step="27" data-x="43200" data-y="0"><h1 id="id14">Extracting the heart rate</h1><ul>
+<li>IBIs are obtained by difference of timestamps of consecutive peaks</li>
+<li>Peaks are identified as points where the differential changes the sign</li>
+</ul></div><div class="step" step="28" data-x="44800" data-y="0"><h1 id="id15">Extracting the heart rate</h1><ul>
+<li>
+IBI at time $t_{i+1}$ is given by
+\begin{eqnarray}
+IBI_{i} & = & t_{i+1}-t_{i}\\
+IBI_{i+1} & = & t_{i+2}-t_{i+1}
+\end{eqnarray}
+
+<img src="peaksmatlab.png" height="300px"/>
+</li>
+</ul></div><div class="step" step="29" data-x="46400" data-y="0"><h1 id="id16">Extracting the heart rate</h1><ul>
+<li> The heart rate for a given temporal window is then given by
+\begin{equation}
+HR=\frac{60000}{\bar{IBI}}
+\end{equation}
+ where $\bar{IBI}$ is the average inter-beat interval over that window.
+</li>
+</ul></div><div class="step" step="30" data-x="48000" data-y="0"><h1 id="chrom-method">CHROM method</h1><ul><li>Simplified <em>chrominance</em> based method based on De Haan's CRHOM method</li><li>Similar to BASIC method</li><li>Difference lies in the RPPG signal extraction stage</li></ul><img src="CHROM.png" style="position:relative; left:-15%;width:130%"/></div><div class="step" step="31" data-x="49600" data-y="0"><h1 id="id17">CHROM method</h1><ul>
+<li>The pixels from the skin ROI are projected onto the chrominance plane which is a linear combination of the RGB plane </li>
+<li>
+RPPG signal is approximated as
+\begin{equation}
+S_{n}=1.5R_{n}-3G_{n}+1.5B_{n}\label{eq:CHROMAverage}
+\end{equation}
+where $R_{n},\,G_{n},\,B_{n}$ are the RGB value of the $n^{th}$ pixel in the ROI
+</li>
+</ul></div><div class="step" step="32" data-x="51200" data-y="0"><h1 id="ica-rgb-method">ICA_RGB method</h1><ul><li>Poh et. al. showed that blind source separation on RGB videos can be used to extract a more robust RPPG signal</li></ul><img src="poh.png" style="position:relative;width:800px;"/></div><div class="step" step="33" data-x="52800" data-y="0"><h1 id="id18">ICA_RGB method</h1><ul><li>Independent component analysis (ICA) is applied to the signal obtained from the BASIC method</li><li>Component selection then needs to be performed since ICA is a <em>blind</em> source separation method</li></ul><img src="RPPGExtraction.png" alt="" width="800px" height=""></img></div><div class="step" step="34" data-x="54400" data-y="0"><h1 id="independent-component-analysis">Independent component analysis</h1><ul><li>A statistical technique to decompose a multivariate signal into constituent assuming that the underlying signals are uncorrelated</li><li>Used to solve the <em>cocktail party problem</em></li><li>The FastICA implementation was used</li></ul></div><div class="step" step="35" data-x="56000" data-y="0"><h1 id="id19">Independent component analysis</h1><ul><li>ICA gives the constituent signals as an output but no other information</li><li>We need to select the component that represents the RPPG signal</li><li>The component with the highest power spectral density was chosen as the RPPG signal</li></ul></div><div class="step" step="36" data-x="57600" data-y="0"><h1 id="the-system-in-action">The system in action</h1><table style="position:relative;left:-50px">
+<tr>
+<td><img src="peakdetection1.png" height="400px"/></td>
+<td><img src="peakdetection2.png" height="400px"/></td>
+</tr>
+</table></div><div class="step" step="37" data-x="59200" data-y="0"><h1 id="id20">The system in action</h1><table style="position:relative;left:-50px">
+<tr>
+<td><img src="peakdetection3.png" height="400px"/></td>
+<td><img src="peakdetection4.png" height="400px"/></td>
+
+</tr>
+</table></div><div class="step" step="38" data-x="60800" data-y="0"><h1 id="id21">Outline</h1><ul>
+<li>Introduction</li>
+<li>Methodology</li>
+<li class="selected">Experimental setup</li>
+<li>Results and analysis</li>
+<li>Conclusions and future work</li>
+<li>References</li>
+</ul></div><div class="step" step="39" data-x="62400" data-y="0"><h1 id="experimental-setup">Experimental setup</h1><ul><li>Need for a more rigorous analysis and a corresponding video database for testing the system</li></ul><img src="final.png" alt="" width="800px" height=""></img></div><div class="step" step="40" data-x="64000" data-y="0"><h1 id="id22">Experimental setup</h1><ul><li>47 subjects</li><li><dl><dt>3 videos per subject for better variability in the data</dt><dd><ul><li>Relaxed state heart rate with soothing music</li><li>Elevated heart rate with stressful music and playing a game</li><li>Heart rate measurements with regular movements</li></ul></dd></dl></li><li>Videos recorded in custom format with ground truth data embedded</li></ul></div><div class="step" step="41" data-x="65600" data-y="0"><h1 id="id23">Experimental setup</h1><ul><li>24 bit, RGB channels, 8 bits/channel, 30 frames/second</li><li>70 seconds long video with first 10 seconds discarded to ignore possible noise</li><li>133 usable videos</li></ul></div><div class="step" step="42" data-x="67200" data-y="0"><h1 id="id24">Outline</h1><ul>
+<li>Introduction</li>
+<li>State of the art</li>
+<li>Methodology</li>
+<li>Experimental setup</li>
+<li class="selected">Results and analysis</li>
+<li>Conclusions and future work</li>
+<li>References</li>
+</ul></div><div class="step" step="43" data-x="68800" data-y="0"><h1 id="results-and-analysis">Results and analysis</h1><ul>
+<li>Evaluation based on window size and RPPG extraction method</li>
+<li>Metrics calculated are</li>
+<ul>
+<li>Normalized root mean square error</li>
+<li>Mean and standard deviation of differences</li>
+<li>Pearson correlation coefficient</li>
+<li>Mean of differences and 95% of agreement($\pm$1.96SD) using Bland-Altman analysis</li>
+</ul>
+<li>
+Each metric is averaged over all the videos and each metric per video is averaged over the whole temporal signal.
+</li>
+</ul></div><div class="step" step="44" data-x="70400" data-y="0"><h1 id="results-chrom-vs-basic">Results - CHROM vs BASIC</h1><img src="blandaltmanPYRCHROM2.png" style="position:relative; left:-12%;width:125%"/>
+Dataset 2</div><div class="step" step="45" data-x="72000" data-y="0"><h1 id="id25">Results - CHROM vs BASIC</h1><img src="blandaltmanPYRCHROM3.png" style="position:relative; left:-12%;width:125%"/>
+Dataset 3</div><div class="step" step="46" data-x="73600" data-y="0"><h1 id="results-ica-vs-basic">Results - ICA vs BASIC</h1><img src="blandaltmanPYRICA2.png" style="position:relative; left:-12%;width:125%"/>
+Dataset 2</div><div class="step" step="47" data-x="75200" data-y="0"><h1 id="id26">Results - ICA vs BASIC</h1><img src="blandaltmanPYRICA3.png" style="position:relative; left:-12%;width:125%"/>
+Dataset 3</div><div class="step" step="48" data-x="76800" data-y="0"><h1 id="analysis">Analysis</h1><ul><li><dl><dt>Parameters affecting the quality of the results</dt><dd><ul><li>Accuracy of the HR measurement algorithm</li><li>Timing issues</li></ul></dd></dl></li></ul><img src="ppgvsrppg.png" style="position:relative; left:-12%;width:125%"/>
+PPG vs RPPG</div><div class="step" step="49" data-x="78400" data-y="0"><h1 id="id27">Analysis</h1><ul><li><dl><dt>Other parameters affecting the quality of the results</dt><dd><ul><li>Window size</li><li>Video dataset</li><li>RPPG extraction method</li><li>ICA implementation</li></ul></dd></dl></li></ul></div><div class="step" step="50" data-x="80000" data-y="0"><h1 id="id28">Outline</h1><ul>
+<li>Introduction</li>
+<li>Methodology</li>
+<li>Experimental setup</li>
+<li>Results and analysis</li>
+<li class="selected">Conclusions and future work</li>
+<li>References</li>
+</ul></div><div class="step" step="51" data-x="81600" data-y="0"><h1 id="conclusions-and-future-work">Conclusions and future work</h1><ul><li>A proof of concept system for measuring heart rate using remote photoplethysmography was designed and built in C++</li><li>Three methods were tested, BASIC, CHROM and ICA_RGB</li><li><dl><dt>The system has much scope for improvement:</dt><dd><ul><li>Improve results of ICA and obtain results at par or better than state of the art</li><li>Improve peak detection and HR calculation</li></ul></dd></dl></li></ul></div><div class="step" step="52" data-x="83200" data-y="0"><h1 id="id29">Outline</h1><ul>
+<li>Introduction</li>
+<li>Methodology</li>
+<li>Experimental setup</li>
+<li>Results and analysis</li>
+<li>Conclusions and future work</li>
+<li class="selected">References</li>
+</ul></div><div class="step" step="53" data-x="84800" data-y="0"><h1 id="references">References</h1></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Left, Down, Page Down</th><td>Next slide</td></tr><tr><th>Right, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script><div><img style=" padding: 10px 10px;float:right" src="headerright.png" height="60px"></img></div><div><img style=" padding: 10px 10px;float:left" src="headerleft.png" height="60px"></img></div><div style="background-color:#99cc55;position:absolute;bottom:10px;width:99%;box-shadow: -5px -5px 10px #777"><span style="font-size:60%;position:relative; float:left;margin-left: 0.4em;margin-top: 0.5em;color:#2f2f2f">
+      Richard Macwan
+     </span><span style="font-size:70%;position:relative; color:#2f2f2f">
+      Non-contact physiological signs measurement
+     </span><span id="slide_number" style="float:right;margin-right:0.5em;color:#2f2f2f"></span></div></body></html>

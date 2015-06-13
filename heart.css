@@ -1,0 +1,79 @@
+
+	<style>
+
+		@-webkit-keyframes heartbeat {
+			0% { -webkit-transform: scale(0.5); }
+			20% { -webkit-transform: scale(0.32); }
+			30% { -webkit-transform: scale(0.4); }
+			40% { -webkit-transform: scale(0.32); }
+			50% { -webkit-transform: scale(0.4); }
+			100% { -webkit-transform: scale(0.4); }
+		}
+		@-moz-keyframes heartbeat {
+			0% { -moz-transform: scale(0.4); }
+			20% { -moz-transform: scale(0.32); }
+			30% { -moz-transform: scale(0.4); }
+			40% { -moz-transform: scale(0.32); }
+			50% { -moz-transform: scale(0.4); }
+			100% { -moz-transform: scale(0.4); }
+		}
+		body{
+			background-color: #1e2023;
+		}
+		.heart:hover,
+		.heart:focus, .heart {
+			-webkit-animation-name: heartbeat;
+			-webkit-animation-duration: 1s;
+			-webkit-transform-origin:50% 50%;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-timing-function: linear;
+			
+			-moz-animation-name: heartbeat;
+			-moz-animation-duration: 1s;
+			-moz-transform-origin:50% 50%;
+			-moz-animation-iteration-count: infinite;
+			-moz-animation-timing-function: linear;
+		}
+		.shake {
+			display:inline-block;
+			text-align: center;
+		}
+		.heart{
+			width: 150px;
+			fill: #f53838;
+			display: inline;
+		}
+		.hoverme{
+			position: absolute;
+			top:54%;
+			left: 52%;
+		}
+		.arrow{
+			fill: #ffffff;
+			width: 100px;
+		}
+		.hoverme p{
+			color: #eaeaea;
+			margin-top: -40px;
+			margin-left: 115px;
+			font-size: 1.3em;
+			font-family: 'Coming Soon', cursive;
+		}
+		
+		.code{
+			display: block;
+			position: relative;
+			margin: 0 auto;
+			background-color: #fafafa;
+			width: 90% !important;
+			max-width: 800px !important;
+			padding: 20px;
+			font-family: Helvetica;
+		}
+	</style>
+	
+	<div class="shake" style="position:relative;left:-100px">
+		<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" class="heart" viewBox="0 0 498.637 466.804" enable-background="new 0 0 498.637 466.804" xml:space="preserve">
+		<path d="M368.932 0c-53.828 0-99.977 32.785-119.613 79.468C229.682 32.8 183.5 0 129.7 0C62.549 0 0 64.7 0 129.7 C0 287.3 193.4 361.7 249.3 466.804l0 0c55.907-105.108 249.319-179.489 249.319-337.094C498.637 64.7 436.1 0 368.9 0 z"/>
+		</svg>
+	</div>	
